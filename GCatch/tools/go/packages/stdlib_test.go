@@ -13,8 +13,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/testenv"
+	"golang.org/x/tools/go/packages"
 )
 
 // This test loads the metadata for the standard library,

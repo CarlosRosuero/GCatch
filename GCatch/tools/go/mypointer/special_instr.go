@@ -1,7 +1,7 @@
 package mypointer
 
 import (
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
+	"golang.org/x/tools/go/ssa"
 	"strings"
 )
 
@@ -9,9 +9,10 @@ import (
 
 // 1. context APIs
 // context APIs
-var ctx_fn_list = []string{"context.WithValue","context.WithCancel","context.WithDeadline","context.WithTimeout"}
+var ctx_fn_list = []string{"context.WithValue", "context.WithCancel", "context.WithDeadline", "context.WithTimeout"}
+
 // some people still like to import from golang.org/
-var ctx_fn_contain_list = []string{"golang.org/x/net/context.WithValue","golang.org/x/net/context.WithCancel","golang.org/x/net/context.WithDeadline","golang.org/x/net/context.WithTimeout"}
+var ctx_fn_contain_list = []string{"golang.org/x/net/context.WithValue", "golang.org/x/net/context.WithCancel", "golang.org/x/net/context.WithDeadline", "golang.org/x/net/context.WithTimeout"}
 
 // 2. special functions
 var special_fn_name_list = []string{"mygo"}
@@ -26,7 +27,7 @@ func is_in_sensitive_list(fn *ssa.Function) bool {
 }
 
 func is_special_fn_name(name string) bool {
-	for _,sp_name := range special_fn_name_list {
+	for _, sp_name := range special_fn_name_list {
 		if sp_name == name {
 			return true
 		}
@@ -35,16 +36,15 @@ func is_special_fn_name(name string) bool {
 }
 
 func is_ctx_fn(str string) bool {
-	for _,fn_str := range ctx_fn_list {
+	for _, fn_str := range ctx_fn_list {
 		if str == fn_str {
 			return true
 		}
 	}
-	for _,fn_str := range ctx_fn_contain_list {
-		if strings.Contains(str,fn_str) {
+	for _, fn_str := range ctx_fn_contain_list {
+		if strings.Contains(str, fn_str) {
 			return true
 		}
 	}
 	return false
 }
-

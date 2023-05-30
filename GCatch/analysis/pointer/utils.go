@@ -3,7 +3,7 @@ package pointer
 import (
 	"github.com/system-pclub/GCatch/GCatch/instinfo"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/mypointer"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
+	"golang.org/x/tools/go/ssa"
 	"strings"
 )
 
@@ -29,7 +29,7 @@ func boolIsInContext(v ssa.Value) bool {
 		return false
 	}
 	strPkg := v.Parent().Pkg.Pkg.Path()
-	if strPkg == "context" || strings.Contains(strPkg,"golang.org/x/net/context") { // some people still
+	if strPkg == "context" || strings.Contains(strPkg, "golang.org/x/net/context") { // some people still
 		// import golang.org/x/net/context
 		return true
 	}

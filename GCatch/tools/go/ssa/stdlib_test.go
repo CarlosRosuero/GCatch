@@ -22,11 +22,11 @@ import (
 	"time"
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/ast/inspector"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa/ssautil"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/testenv"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/typeparams/genericfeatures"
+	"golang.org/x/tools/go/packages"
+	"golang.org/x/tools/go/ssa"
+	"golang.org/x/tools/go/ssa/ssautil"
 )
 
 func bytesAllocated() uint64 {

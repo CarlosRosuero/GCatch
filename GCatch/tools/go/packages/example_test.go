@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
+	"golang.org/x/tools/go/packages"
 )
 
 // Example demonstrates how to load the packages specified on the

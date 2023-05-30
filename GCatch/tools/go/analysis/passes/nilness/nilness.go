@@ -14,7 +14,7 @@ import (
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis/passes/buildssa"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
+	"golang.org/x/tools/go/ssa"
 )
 
 const Doc = `check for redundant or impossible nil comparisons

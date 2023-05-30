@@ -42,7 +42,7 @@
 //
 // * os.Exit is implemented using panic, causing deferred functions to
 // run.
-package interp // import "github.com/system-pclub/GCatch/GCatch/tools/go/ssa/interp"
+package interp // import "golang.org/x/tools/go/ssa/interp"
 
 import (
 	"fmt"
@@ -53,7 +53,7 @@ import (
 	"runtime"
 	"sync/atomic"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
+	"golang.org/x/tools/go/ssa"
 )
 
 type continuation int
@@ -131,7 +131,6 @@ func (fr *frame) get(key ssa.Value) value {
 
 // runDefer runs a deferred call d.
 // It always returns normally, but may set or clear fr.panic.
-//
 func (fr *frame) runDefer(d *deferred) {
 	if fr.i.mode&EnableTracing != 0 {
 		fmt.Fprintf(os.Stderr, "%s: invoking deferred function call\n",
@@ -160,7 +159,6 @@ func (fr *frame) runDefer(d *deferred) {
 //
 // If there was no initial state of panic, or it was recovered from,
 // runDefers returns normally.
-//
 func (fr *frame) runDefers() {
 	for d := fr.defers; d != nil; d = d.tail {
 		fr.runDefer(d)
@@ -426,7 +424,6 @@ func visitInstr(fr *frame, instr ssa.Instruction) continuation {
 // prepareCall determines the function value and argument values for a
 // function call in a Call, Go or Defer instruction, performing
 // interface method lookup if needed.
-//
 func prepareCall(fr *frame, call *ssa.CallCommon) (fn value, args []value) {
 	v := fr.get(call.Value)
 	if call.Method == nil {
@@ -455,7 +452,6 @@ func prepareCall(fr *frame, call *ssa.CallCommon) (fn value, args []value) {
 // call interprets a call to a function (function, builtin or closure)
 // fn with arguments args, returning its result.
 // callpos is the position of the callsite.
-//
 func call(i *interpreter, caller *frame, callpos token.Pos, fn value, args []value) value {
 	switch fn := fn.(type) {
 	case *ssa.Function:
@@ -481,7 +477,6 @@ func loc(fset *token.FileSet, pos token.Pos) string {
 // callSSA interprets a call to function fn with arguments args,
 // and lexical environment env, returning its result.
 // callpos is the position of the callsite.
-//
 func callSSA(i *interpreter, caller *frame, callpos token.Pos, fn *ssa.Function, args []value, env []value) value {
 	if i.mode&EnableTracing != 0 {
 		fset := fn.Prog.Fset
@@ -548,7 +543,6 @@ func callSSA(i *interpreter, caller *frame, callpos token.Pos, fn *ssa.Function,
 // After a recovered panic in a function with NRPs, fr.result is
 // undefined and fr.block contains the block at which to resume
 // control.
-//
 func runFrame(fr *frame) {
 	defer func() {
 		if fr.block == nil {
@@ -640,7 +634,6 @@ func setGlobal(i *interpreter, pkg *ssa.Package, name string, v value) {
 // gc does), or the argument to os.Exit for normal termination.
 //
 // The SSA program must include the "runtime" package.
-//
 func Interpret(mainpkg *ssa.Package, mode Mode, sizes types.Sizes, filename string, args []string) (exitCode int) {
 	i := &interpreter{
 		prog:       mainpkg.Prog,

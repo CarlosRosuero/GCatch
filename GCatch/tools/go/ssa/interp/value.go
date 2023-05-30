@@ -43,8 +43,8 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/types/typeutil"
+	"golang.org/x/tools/go/ssa"
 )
 
 type value interface{}

@@ -15,7 +15,6 @@ import (
 	"strconv"
 	"strings"
 
-	"golang.org/x/mod/modfile"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/event"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/gocommand"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/command"
@@ -25,6 +24,7 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/source"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/memoize"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
+	"golang.org/x/mod/modfile"
 )
 
 type modTidyKey struct {
@@ -251,7 +251,7 @@ func modTidyDiagnostics(ctx context.Context, snapshot source.Snapshot, pm *sourc
 			//
 			// import (
 			//   "github.com/system-pclub/GCatch/GCatch/tools/go/expect"
-			//   "github.com/system-pclub/GCatch/GCatch/tools/go/packages"
+			//   "golang.org/x/tools/go/packages"
 			// )
 			// They both are related to the same module: "github.com/system-pclub/GCatch/GCatch/tools".
 			var match string

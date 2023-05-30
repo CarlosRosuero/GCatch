@@ -11,7 +11,7 @@ import (
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis/passes/buildssa"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
+	"golang.org/x/tools/go/ssa"
 )
 
 // Doc is a documentation string.
@@ -41,7 +41,7 @@ Another example is about non-pointer receiver:
 `
 
 // Analyzer reports instances of writes to struct fields and arrays
-//that are never read.
+// that are never read.
 var Analyzer = &analysis.Analyzer{
 	Name:     "unusedwrite",
 	Doc:      Doc,

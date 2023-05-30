@@ -12,14 +12,14 @@ import (
 	"go/types"
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/loader"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
+	"golang.org/x/tools/go/packages"
+	"golang.org/x/tools/go/ssa"
 )
 
 // Packages creates an SSA program for a set of packages.
 //
 // The packages must have been loaded from source syntax using the
-// github.com/system-pclub/GCatch/GCatch/tools/go/packages.Load function in LoadSyntax or
+// golang.org/x/tools/go/packages.Load function in LoadSyntax or
 // LoadAllSyntax mode.
 //
 // Packages creates an SSA package for each well-typed package in the
@@ -33,7 +33,6 @@ import (
 // packages with well-typed syntax trees.
 //
 // The mode parameter controls diagnostics and checking during SSA construction.
-//
 func Packages(initial []*packages.Package, mode ssa.BuilderMode) (*ssa.Program, []*ssa.Package) {
 	return doPackages(initial, mode, false)
 }
@@ -42,7 +41,7 @@ func Packages(initial []*packages.Package, mode ssa.BuilderMode) (*ssa.Program, 
 // their dependencies.
 //
 // The packages must have been loaded from source syntax using the
-// github.com/system-pclub/GCatch/GCatch/tools/go/packages.Load function in LoadAllSyntax mode.
+// golang.org/x/tools/go/packages.Load function in LoadAllSyntax mode.
 //
 // AllPackages creates an SSA package for each well-typed package in the
 // initial list, plus all their dependencies. The resulting list of
@@ -55,7 +54,6 @@ func Packages(initial []*packages.Package, mode ssa.BuilderMode) (*ssa.Program, 
 // well-typed syntax trees.
 //
 // The mode parameter controls diagnostics and checking during SSA construction.
-//
 func AllPackages(initial []*packages.Package, mode ssa.BuilderMode) (*ssa.Program, []*ssa.Package) {
 	return doPackages(initial, mode, true)
 }
@@ -101,9 +99,8 @@ func doPackages(initial []*packages.Package, mode ssa.BuilderMode, deps bool) (*
 //
 // The mode parameter controls diagnostics and checking during SSA construction.
 //
-// Deprecated: Use github.com/system-pclub/GCatch/GCatch/tools/go/packages and the Packages
+// Deprecated: Use golang.org/x/tools/go/packages and the Packages
 // function instead; see ssa.Example_loadPackages.
-//
 func CreateProgram(lprog *loader.Program, mode ssa.BuilderMode) *ssa.Program {
 	prog := ssa.NewProgram(lprog.Fset, mode)
 
@@ -130,7 +127,6 @@ func CreateProgram(lprog *loader.Program, mode ssa.BuilderMode) *ssa.Program {
 // The operation fails if there were any type-checking or import errors.
 //
 // See ../example_test.go for an example.
-//
 func BuildPackage(tc *types.Config, fset *token.FileSet, pkg *types.Package, files []*ast.File, mode ssa.BuilderMode) (*ssa.Package, *types.Info, error) {
 	if fset == nil {
 		panic("no token.FileSet")

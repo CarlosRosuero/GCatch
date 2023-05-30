@@ -20,10 +20,6 @@ import (
 	"strings"
 	"sync"
 
-	"golang.org/x/mod/modfile"
-	"golang.org/x/mod/semver"
-	exec "golang.org/x/sys/execabs"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/event"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/gocommand"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/imports"
@@ -32,6 +28,10 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/memoize"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/xcontext"
+	"golang.org/x/mod/modfile"
+	"golang.org/x/mod/semver"
+	exec "golang.org/x/sys/execabs"
+	"golang.org/x/tools/go/packages"
 	errors "golang.org/x/xerrors"
 )
 
@@ -536,8 +536,9 @@ func (s *snapshot) IgnoredFile(uri span.URI) bool {
 }
 
 // checkIgnored implements go list's exclusion rules. go help list:
-// 		Directory and file names that begin with "." or "_" are ignored
-// 		by the go tool, as are directories named "testdata".
+//
+//	Directory and file names that begin with "." or "_" are ignored
+//	by the go tool, as are directories named "testdata".
 func checkIgnored(suffix string) bool {
 	for _, component := range strings.Split(suffix, string(filepath.Separator)) {
 		if len(component) == 0 {
@@ -811,6 +812,7 @@ func go111moduleForVersion(go111module string, goversion int) go111module {
 //   - Then, a parent directory containing a go.mod file.
 //   - Then, a child directory containing a go.mod file, if there is exactly
 //     one (non-experimental only).
+//
 // Otherwise, it returns folder.
 // TODO (rFindley): move this to workspace.go
 // TODO (rFindley): simplify this once workspace modules are enabled by default.

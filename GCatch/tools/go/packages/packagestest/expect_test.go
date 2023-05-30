@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/expect"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages/packagestest"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
+	"golang.org/x/tools/go/packages/packagestest"
 )
 
 func TestExpect(t *testing.T) {

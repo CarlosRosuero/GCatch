@@ -5,7 +5,7 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/config"
 	"github.com/system-pclub/GCatch/GCatch/instinfo"
 	"github.com/system-pclub/GCatch/GCatch/output"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
+	"golang.org/x/tools/go/ssa"
 )
 
 // nextInst mustn't be called upon jump/if/return/panic, which have no or multiple nextInst
@@ -766,7 +766,7 @@ func checkLockerOpsLegal(l *instinfo.Locker, ops []Node) bool {
 	} else if intNumUnlock > intNumLock {
 		return false
 	} else { // intNumUnlock < intNumLock
-		if intNumUnlock == intNumLock - 1 {
+		if intNumUnlock == intNumLock-1 {
 			return true
 		} else {
 			return false

@@ -15,9 +15,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa/ssautil"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/testenv"
+	"golang.org/x/tools/go/packages"
+	"golang.org/x/tools/go/ssa/ssautil"
 )
 
 const hello = `package main

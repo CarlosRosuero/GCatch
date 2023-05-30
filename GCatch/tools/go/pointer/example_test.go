@@ -11,15 +11,14 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/tools/go/callgraph"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/loader"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/pointer"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa/ssautil"
+	"golang.org/x/tools/go/ssa"
+	"golang.org/x/tools/go/ssa/ssautil"
 )
 
 // This program demonstrates how to use the pointer analysis to
 // obtain a conservative call-graph of a Go program.
 // It also shows how to compute the points-to set of a variable,
 // in this case, (C).f's ch parameter.
-//
 func Example() {
 	const myprog = `
 package main

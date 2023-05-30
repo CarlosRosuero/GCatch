@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages/packagestest"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/testenv"
+	"golang.org/x/tools/go/packages/packagestest"
 )
 
 func TestModulesExport(t *testing.T) {

@@ -11,11 +11,11 @@ import (
 	"go/token"
 	"strings"
 
-	"golang.org/x/mod/modfile"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/event"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/protocol"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/source"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
+	"golang.org/x/mod/modfile"
 	errors "golang.org/x/xerrors"
 )
 
@@ -151,7 +151,7 @@ func formatExplanation(text string, req *modfile.Require, options *source.Option
 	// If the explanation is 3 lines, then it is of the form:
 	// # github.com/system-pclub/GCatch/GCatch/tools
 	// modtest
-	// github.com/system-pclub/GCatch/GCatch/tools/go/packages
+	// golang.org/x/tools/go/packages
 	if length == 3 {
 		msg := fmt.Sprintf(" `%s`.", splt[1])
 		b.WriteString(msg)

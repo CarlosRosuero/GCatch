@@ -22,8 +22,8 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/tools/go/ast/astutil"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/expect"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/loader"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa/ssautil"
+	"golang.org/x/tools/go/ssa"
+	"golang.org/x/tools/go/ssa/ssautil"
 )
 
 func TestObjValueLookup(t *testing.T) {
@@ -325,7 +325,6 @@ func testValueForExpr(t *testing.T, testfile string) {
 // findInterval parses input and returns the [start, end) positions of
 // the first occurrence of substr in input.  f==nil indicates failure;
 // an error has already been reported in that case.
-//
 func findInterval(t *testing.T, fset *token.FileSet, input, substr string) (f *ast.File, start, end token.Pos) {
 	f, err := parser.ParseFile(fset, "<input>", input, 0)
 	if err != nil {

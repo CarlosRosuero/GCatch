@@ -24,8 +24,8 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/tools/go/callgraph"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/callgraph/rta"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/loader"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa/ssautil"
+	"golang.org/x/tools/go/ssa"
+	"golang.org/x/tools/go/ssa/ssautil"
 )
 
 var inputs = []string{
@@ -51,7 +51,6 @@ func expectation(f *ast.File) (string, token.Pos) {
 // The results string consists of two parts: the set of dynamic call
 // edges, "f --> g", one per line, and the set of reachable functions,
 // one per line.  Each set is sorted.
-//
 func TestRTA(t *testing.T) {
 	for _, filename := range inputs {
 		content, err := ioutil.ReadFile(filename)

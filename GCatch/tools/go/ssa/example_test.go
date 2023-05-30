@@ -14,9 +14,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa/ssautil"
+	"golang.org/x/tools/go/packages"
+	"golang.org/x/tools/go/ssa"
+	"golang.org/x/tools/go/ssa/ssautil"
 )
 
 const hello = `
@@ -48,7 +48,6 @@ func main() {
 // Build and run the ssadump.go program if you want a standalone tool
 // with similar functionality. It is located at
 // github.com/system-pclub/GCatch/GCatch/tools/cmd/ssadump.
-//
 func Example_buildPackage() {
 	// Parse the source files.
 	fset := token.NewFileSet()

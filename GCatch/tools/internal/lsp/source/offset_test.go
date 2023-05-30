@@ -9,7 +9,7 @@ import (
 	"go/types"
 	"testing"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
+	"golang.org/x/tools/go/packages"
 )
 
 // This test reports any unexpected uses of (*go/token.File).Offset within

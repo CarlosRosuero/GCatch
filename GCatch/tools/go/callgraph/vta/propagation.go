@@ -8,7 +8,7 @@ import (
 	"go/types"
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/callgraph/vta/internal/trie"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
+	"golang.org/x/tools/go/ssa"
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/types/typeutil"
 )

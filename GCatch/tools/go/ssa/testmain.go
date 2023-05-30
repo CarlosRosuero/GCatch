@@ -29,7 +29,7 @@ import (
 // (as defined by "go test") defined in the specified package,
 // and its TestMain function, if any.
 //
-// Deprecated: Use github.com/system-pclub/GCatch/GCatch/tools/go/packages to access synthetic
+// Deprecated: Use golang.org/x/tools/go/packages to access synthetic
 // testmain packages.
 func FindTests(pkg *Package) (tests, benchmarks, examples []*Function, main *Function) {
 	prog := pkg.Prog
@@ -115,7 +115,7 @@ func isTest(name, prefix string) bool {
 // Subsequent calls to prog.AllPackages include the new package.
 // The package pkg must belong to the program prog.
 //
-// Deprecated: Use github.com/system-pclub/GCatch/GCatch/tools/go/packages to access synthetic
+// Deprecated: Use golang.org/x/tools/go/packages to access synthetic
 // testmain packages.
 func (prog *Program) CreateTestMainPackage(pkg *Package) *Package {
 	if pkg.Prog != prog {

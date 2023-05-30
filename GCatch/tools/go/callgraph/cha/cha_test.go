@@ -24,7 +24,7 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/tools/go/callgraph"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/callgraph/cha"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/loader"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa/ssautil"
+	"golang.org/x/tools/go/ssa/ssautil"
 )
 
 var inputs = []string{
@@ -47,7 +47,6 @@ func expectation(f *ast.File) (string, token.Pos) {
 // TestCHA runs CHA on each file in inputs, prints the dynamic edges of
 // the call graph, and compares it with the golden results embedded in
 // the WANT comment at the end of the file.
-//
 func TestCHA(t *testing.T) {
 	for _, filename := range inputs {
 		content, err := ioutil.ReadFile(filename)

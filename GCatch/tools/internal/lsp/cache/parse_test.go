@@ -15,7 +15,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
+	"golang.org/x/tools/go/packages"
 )
 
 func TestArrayLength(t *testing.T) {

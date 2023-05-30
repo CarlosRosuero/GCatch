@@ -16,8 +16,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/testenv"
+	"golang.org/x/tools/go/packages"
 )
 
 func TestChanges(t *testing.T) {

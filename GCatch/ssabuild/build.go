@@ -2,16 +2,16 @@ package ssabuild
 
 import (
 	"fmt"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa/ssautil"
+	"golang.org/x/tools/go/packages"
+	"golang.org/x/tools/go/ssa"
+	"golang.org/x/tools/go/ssa/ssautil"
 	"os"
 )
 
 // Our traditional way to build a program. Here strPath should be what's after "/src/", like "github.com/docker/docker"
 func BuildWholeProgramTrad(strPath string, boolForce bool, boolShowError bool) (*ssa.Program, []*ssa.Package, bool, string) {
 	strMsg := "suc"
-	cfg := &packages.Config{Mode: packages.LoadAllSyntax, Tests: true, }
+	cfg := &packages.Config{Mode: packages.LoadAllSyntax, Tests: true}
 	initialPackage, err := packages.Load(cfg, strPath) // you can put multiple paths here, but it is unnecessary if you only want one program
 	if err != nil {
 		strMsg = "load_err"
@@ -22,7 +22,7 @@ func BuildWholeProgramTrad(strPath string, boolForce bool, boolShowError bool) (
 		return nil, nil, false, strMsg
 	}
 
-	if packages.PrintErrors(initialPackage, boolShowError) > 0 { //To ignore building errors, you can comment out a line in this function
+	if packages.PrintErrors(initialPackage) > 0 { //To ignore building errors, you can comment out a line in this function
 		strMsg = "type_err"
 
 		if boolForce == false {
@@ -69,7 +69,7 @@ func BuildWholeProgramGoMod(strModulePath string, boolForce bool, boolShowError 
 		return nil, nil, false, strMsg
 	}
 
-	if packages.PrintErrors(initialPackage, boolShowError) > 0 { //To ignore building errors, you can comment out a line in this function
+	if packages.PrintErrors(initialPackage) > 0 { //To ignore building errors, you can comment out a line in this function
 		strMsg = "type_err"
 
 		if boolForce == false {

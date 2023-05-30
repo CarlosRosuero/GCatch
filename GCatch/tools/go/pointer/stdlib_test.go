@@ -26,8 +26,8 @@ import (
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/buildutil"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/loader"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa/ssautil"
+	"golang.org/x/tools/go/ssa"
+	"golang.org/x/tools/go/ssa/ssautil"
 )
 
 var runStdlibTest = flag.Bool("stdlib", false, "Run the (slow) stdlib test")

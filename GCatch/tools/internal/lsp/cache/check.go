@@ -16,9 +16,7 @@ import (
 	"strings"
 	"sync"
 
-	"golang.org/x/mod/module"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/ast/astutil"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/event"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/debug/tag"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/protocol"
@@ -28,6 +26,8 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/typeparams"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/typesinternal"
+	"golang.org/x/mod/module"
+	"golang.org/x/tools/go/packages"
 	errors "golang.org/x/xerrors"
 )
 

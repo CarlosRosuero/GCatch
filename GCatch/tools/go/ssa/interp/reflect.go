@@ -17,7 +17,7 @@ import (
 	"reflect"
 	"unsafe"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
+	"golang.org/x/tools/go/ssa"
 )
 
 type opaqueType struct {

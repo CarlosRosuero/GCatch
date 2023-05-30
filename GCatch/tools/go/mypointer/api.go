@@ -12,8 +12,8 @@ import (
 
 	"github.com/system-pclub/GCatch/GCatch/tools/container/intsets"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/callgraph"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/types/typeutil"
+	"golang.org/x/tools/go/ssa"
 )
 
 // A Config formulates a pointer analysis problem for Analyze. It is
@@ -130,9 +130,10 @@ func (c *Config) AddIndirectQuery(v ssa.Value) {
 // before analysis has finished has undefined behavior.
 //
 // Example:
-// 	// given v, which represents a function call to 'fn() (int, []*T)', and
-// 	// 'type T struct { F *int }', the following query will access the field F.
-// 	c.AddExtendedQuery(v, "x[1][0].F")
+//
+//	// given v, which represents a function call to 'fn() (int, []*T)', and
+//	// 'type T struct { F *int }', the following query will access the field F.
+//	c.AddExtendedQuery(v, "x[1][0].F")
 func (c *Config) AddExtendedQuery(v ssa.Value, query string) (*Pointer, error) {
 	ops, _, err := parseExtendedQuery(v.Type(), query)
 	if err != nil {
@@ -165,7 +166,6 @@ type Warning struct {
 // A Result contains the results of a pointer analysis.
 //
 // See Config for how to request the various Result components.
-//
 type Result struct {
 	CallGraph       *callgraph.Graph      // discovered call graph
 	Queries         map[ssa.Value]Pointer // pts(v) for each v in Config.Queries.
@@ -177,7 +177,6 @@ type Result struct {
 //
 // A Pointer doesn't have a unique type because pointers of distinct
 // types may alias the same object.
-//
 type Pointer struct {
 	a *analysis
 	n nodeid
@@ -228,7 +227,6 @@ func (s PointsToSet) Labels() []*Label {
 // map value is the PointsToSet for pointers of that type.
 //
 // The result is empty unless CanHaveDynamicTypes(T).
-//
 func (s PointsToSet) DynamicTypes() *typeutil.Map {
 	var tmap typeutil.Map
 	tmap.SetHasher(s.a.hasher)

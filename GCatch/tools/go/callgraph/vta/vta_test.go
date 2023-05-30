@@ -8,8 +8,8 @@ import (
 	"testing"
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/callgraph/cha"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa/ssautil"
+	"golang.org/x/tools/go/ssa"
+	"golang.org/x/tools/go/ssa/ssautil"
 )
 
 func TestVTACallGraph(t *testing.T) {

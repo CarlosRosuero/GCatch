@@ -16,7 +16,7 @@ import (
 	"reflect"
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
+	"golang.org/x/tools/go/ssa"
 )
 
 var Analyzer = &analysis.Analyzer{

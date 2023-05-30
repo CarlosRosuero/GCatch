@@ -21,11 +21,7 @@ import (
 	"strings"
 	"sync"
 
-	"golang.org/x/mod/modfile"
-	"golang.org/x/mod/module"
-	"golang.org/x/mod/semver"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/event"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/gocommand"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/debug/log"
@@ -35,6 +31,10 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/packagesinternal"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/typesinternal"
+	"golang.org/x/mod/modfile"
+	"golang.org/x/mod/module"
+	"golang.org/x/mod/semver"
+	"golang.org/x/tools/go/packages"
 	errors "golang.org/x/xerrors"
 )
 

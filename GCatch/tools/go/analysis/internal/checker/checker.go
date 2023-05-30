@@ -31,9 +31,9 @@ import (
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis/internal/analysisflags"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/analysisinternal"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
+	"golang.org/x/tools/go/packages"
 )
 
 var (

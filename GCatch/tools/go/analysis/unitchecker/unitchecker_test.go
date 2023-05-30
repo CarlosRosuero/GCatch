@@ -23,7 +23,7 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis/passes/findcall"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis/passes/printf"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis/unitchecker"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages/packagestest"
+	"golang.org/x/tools/go/packages/packagestest"
 )
 
 func TestMain(m *testing.M) {

@@ -23,11 +23,11 @@ import (
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis/internal/checker"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/diff"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/diff/myers"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/testenv"
+	"golang.org/x/tools/go/packages"
 	"golang.org/x/tools/txtar"
 )
 
@@ -246,7 +246,7 @@ func RunWithSuggestedFixes(t Testing, dir string, a *analysis.Analyzer, patterns
 // Run applies an analysis to the packages denoted by the "go list" patterns.
 //
 // It loads the packages from the specified GOPATH-style project
-// directory using github.com/system-pclub/GCatch/GCatch/tools/go/packages, runs the analysis on
+// directory using golang.org/x/tools/go/packages, runs the analysis on
 // them, and checks that each analysis emits the expected diagnostics
 // and facts specified by the contents of '// want ...' comments in the
 // package's source files.

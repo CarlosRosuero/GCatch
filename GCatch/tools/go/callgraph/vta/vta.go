@@ -58,7 +58,7 @@ import (
 	"go/types"
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/callgraph"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
+	"golang.org/x/tools/go/ssa"
 )
 
 // CallGraph uses the VTA algorithm to compute call graph for all functions

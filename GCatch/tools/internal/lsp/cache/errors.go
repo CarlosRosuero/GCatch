@@ -14,13 +14,13 @@ import (
 	"strings"
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/analysis"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/analysisinternal"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/command"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/protocol"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/source"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/typesinternal"
+	"golang.org/x/tools/go/packages"
 	errors "golang.org/x/xerrors"
 )
 
@@ -346,8 +346,7 @@ func spanToRange(pkg *pkg, spn span.Span) (protocol.Range, error) {
 // It works only on errors whose message is prefixed by colon,
 // followed by a space (": "). For example:
 //
-//   attributes.go:13:1: expected 'package', found 'type'
-//
+//	attributes.go:13:1: expected 'package', found 'type'
 func parseGoListError(input, wd string) span.Span {
 	input = strings.TrimSpace(input)
 	msgIndex := strings.Index(input, ": ")

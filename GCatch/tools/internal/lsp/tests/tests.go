@@ -24,8 +24,6 @@ import (
 	"time"
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/expect"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages/packagestest"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/command"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/protocol"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/source"
@@ -33,6 +31,8 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/testenv"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/typeparams"
+	"golang.org/x/tools/go/packages"
+	"golang.org/x/tools/go/packages/packagestest"
 	"golang.org/x/tools/txtar"
 )
 

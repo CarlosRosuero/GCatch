@@ -2,8 +2,8 @@ package forgetunlock
 
 import (
 	"fmt"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
 	"go/token"
+	"golang.org/x/tools/go/ssa"
 	"reflect"
 	"sort"
 	"strconv"

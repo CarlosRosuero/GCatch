@@ -17,7 +17,7 @@ import (
 	"testing"
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/buildutil"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages/packagestest"
+	"golang.org/x/tools/go/packages/packagestest"
 )
 
 func TestAllPackages(t *testing.T) {

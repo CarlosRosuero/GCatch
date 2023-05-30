@@ -7,9 +7,9 @@ package cache
 import (
 	"go/types"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/packagesinternal"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
+	"golang.org/x/tools/go/packages"
 )
 
 // Declare explicit types for package paths, names, and IDs to ensure that we

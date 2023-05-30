@@ -9,10 +9,10 @@ package mypointer
 import (
 	"fmt"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/callgraph"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
 	"github.com/system-pclub/GCatch/GCatch/tools/go/types/typeutil"
 	"go/token"
 	"go/types"
+	"golang.org/x/tools/go/ssa"
 	"io"
 	"os"
 	"reflect"
@@ -44,7 +44,6 @@ const (
 //
 // (Note: most variables called 'obj' are not *objects but nodeids
 // such that a.nodes[obj].obj != nil.)
-//
 type object struct {
 	// flags is a bitset of the node type (ot*) flags defined above.
 	flags uint32
@@ -80,7 +79,6 @@ type nodeid uint32
 //
 // Nodes that are pointed-to locations ("labels") have an enclosing
 // object (see analysis.enclosingObject).
-//
 type node struct {
 	// If non-nil, this node is the start of an object
 	// (addressable memory location).
@@ -208,7 +206,7 @@ func (a *analysis) computeTrackBits() {
 	}
 }
 
-///MYCODE
+// /MYCODE
 var Known_callgraph *callgraph.Graph
 var Recv_to_methods_map map[string][]*callgraph.Node
 
@@ -217,7 +215,6 @@ var Recv_to_methods_map map[string][]*callgraph.Node
 //
 // Pointer analysis of a transitively closed well-typed program should
 // always succeed.  An error can occur only due to an internal bug.
-//
 func Analyze(config *Config, known_callgraph *callgraph.Graph) (result *Result, err error) {
 	///MYCODE
 	// Do some preparation
@@ -238,7 +235,6 @@ func Analyze(config *Config, known_callgraph *callgraph.Graph) (result *Result, 
 			Recv_to_methods_map[recv_type] = append(Recv_to_methods_map[recv_type], node)
 		}
 	}
-
 
 	if config.Prog == nil {
 		return nil, fmt.Errorf("no main/test packages to analyze (check $GOROOT/$GOPATH)")
@@ -382,7 +378,7 @@ func Analyze(config *Config, known_callgraph *callgraph.Graph) (result *Result, 
 	///MYCODE
 	// Delete my synthesized <root> function, which calls all the functions
 	if a.config.BuildCallGraph {
-		for _,node := range a.result.CallGraph.Nodes {
+		for _, node := range a.result.CallGraph.Nodes {
 			if node.Func.Name() == "<root>" {
 				a.result.CallGraph.DeleteNode(node)
 				break
@@ -395,10 +391,9 @@ func Analyze(config *Config, known_callgraph *callgraph.Graph) (result *Result, 
 
 // callEdge is called for each edge in the callgraph.
 // calleeid is the callee's object node (has otFunction flag).
-//
 func (a *analysis) callEdge(caller *cgnode, site *callsite, calleeid nodeid) {
 	obj := a.nodes[calleeid].obj
-	if obj.flags & otFunction == 0 {
+	if obj.flags&otFunction == 0 {
 		return
 		panic(fmt.Sprintf("callEdge %s -> n%d: not a function object", site, calleeid))
 	}
@@ -429,7 +424,6 @@ func (a *analysis) callEdge(caller *cgnode, site *callsite, calleeid nodeid) {
 // It only dumps the nodes that existed before solving.  The order in
 // which solver-created nodes are created depends on pre-solver
 // optimization, so we can't include them in the cross-check.
-//
 func (a *analysis) dumpSolution(filename string, N int) {
 	f, err := os.Create(filename)
 	if err != nil {
@@ -457,7 +451,6 @@ func (a *analysis) dumpSolution(filename string, N int) {
 // showCounts logs the size of the constraint system.  A typical
 // optimized distribution is 65% copy, 13% load, 11% addr, 5%
 // offsetAddr, 4% store, 2% others.
-//
 func (a *analysis) showCounts() {
 	if a.log != nil {
 		counts := make(map[reflect.Type]int)

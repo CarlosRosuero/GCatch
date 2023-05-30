@@ -15,7 +15,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/packages"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/event"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/gocommand"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/lsp/debug/tag"
@@ -24,6 +23,7 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/memoize"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/packagesinternal"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
+	"golang.org/x/tools/go/packages"
 	errors "golang.org/x/xerrors"
 )
 

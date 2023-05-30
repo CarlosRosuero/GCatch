@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 /*
-
 Package callgraph defines the call graph and various algorithms
 and utilities to operate on it.
 
@@ -30,7 +29,6 @@ calling main() and init().
 Calls to built-in functions (e.g. panic, println) are not represented
 in the call graph; they are treated like built-in operators of the
 language.
-
 */
 package callgraph // import "github.com/system-pclub/GCatch/GCatch/tools/go/callgraph"
 
@@ -43,7 +41,7 @@ import (
 	"fmt"
 	"go/token"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/go/ssa"
+	"golang.org/x/tools/go/ssa"
 )
 
 // A Graph represents a call graph.
@@ -51,7 +49,6 @@ import (
 // A graph may contain nodes that are not reachable from the root.
 // If the call graph is sound, such nodes indicate unreachable
 // functions.
-//
 type Graph struct {
 	Root  *Node                   // the distinguished root node
 	Nodes map[*ssa.Function]*Node // all nodes by function
