@@ -17,7 +17,7 @@ import (
 	"unicode"
 
 	"github.com/system-pclub/GCatch/GCatch/tools/go/ast/astutil"
-	"github.com/system-pclub/GCatch/GCatch/tools/refactor/satisfy"
+	"golang.org/x/tools/refactor/satisfy"
 )
 
 // errorf reports an error (e.g. conflict) and prevents file modification.
@@ -178,7 +178,6 @@ func (r *renamer) checkInLocalScope(from types.Object) {
 //
 // Removing the old name (and all references to it) is always safe, and
 // requires no checks.
-//
 func (r *renamer) checkInLexicalScope(from types.Object, pkg Package) {
 	b := from.Parent() // the block defining the 'from' object
 	if b != nil {
@@ -530,13 +529,13 @@ func (r *renamer) selectionConflict(from types.Object, delta int, syntax *ast.Se
 
 // checkMethod performs safety checks for renaming a method.
 // There are three hazards:
-// - declaration conflicts
-// - selection ambiguity/changes
-// - entailed renamings of assignable concrete/interface types.
-//   We reject renamings initiated at concrete methods if it would
-//   change the assignability relation.  For renamings of abstract
-//   methods, we rename all methods transitively coupled to it via
-//   assignability.
+//   - declaration conflicts
+//   - selection ambiguity/changes
+//   - entailed renamings of assignable concrete/interface types.
+//     We reject renamings initiated at concrete methods if it would
+//     change the assignability relation.  For renamings of abstract
+//     methods, we rename all methods transitively coupled to it via
+//     assignability.
 func (r *renamer) checkMethod(from *types.Func) {
 	// e.g. error.Error
 	if from.Pkg() == nil {
@@ -827,7 +826,6 @@ func someUse(info *types.Info, obj types.Object) *ast.Ident {
 // exact is defined as for astutil.PathEnclosingInterval.
 //
 // The zero value is returned if not found.
-//
 func pathEnclosingInterval(fset *token.FileSet, pkg Package, start, end token.Pos) (resPkg Package, path []ast.Node, exact bool) {
 	pkgs := []Package{pkg}
 	for _, f := range pkg.GetSyntax() {

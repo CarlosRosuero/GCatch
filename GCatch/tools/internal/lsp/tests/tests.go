@@ -33,7 +33,7 @@ import (
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/span"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/testenv"
 	"github.com/system-pclub/GCatch/GCatch/tools/internal/typeparams"
-	"github.com/system-pclub/GCatch/GCatch/tools/txtar"
+	"golang.org/x/tools/txtar"
 )
 
 const (
