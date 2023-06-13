@@ -1,3 +1,6 @@
 [submodule "GCatch/tools/go/mypointer"]
 	path = GCatch/tools/go/mypointer
 	url = https://github.com/BurtonQin/mypointer
+[submodule "GCatch/tools/internal/typeparams"]
+	path = GCatch/tools/internal/typeparams
+	url = https://github.com/CarlosRosuero/typeparams

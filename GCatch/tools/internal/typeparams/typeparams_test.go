@@ -16,8 +16,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/internal/apidiff"
-	"github.com/system-pclub/GCatch/GCatch/tools/internal/testenv"
+	"golang.org/x/tools/internal/apidiff"
+	"golang.org/x/tools/internal/testenv"
 )
 
 func TestAPIConsistency(t *testing.T) {
