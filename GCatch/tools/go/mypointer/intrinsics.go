@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package mypointer
+package pointer
 
 // This package defines the treatment of intrinsics, i.e. library
 // functions requiring special analytical treatment.

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package mypointer
+package pointer
 
 import (
 	"bytes"
@@ -10,10 +10,10 @@ import (
 	"go/token"
 	"io"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/container/intsets"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/callgraph"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/types/typeutil"
+	"golang.org/x/tools/container/intsets"
+	"golang.org/x/tools/go/callgraph"
 	"golang.org/x/tools/go/ssa"
+	"golang.org/x/tools/go/types/typeutil"
 )
 
 // A Config formulates a pointer analysis problem for Analyze. It is
@@ -28,9 +28,18 @@ type Config struct {
 	// dependencies of any main package may still affect the
 	// analysis result, because they contribute runtime types and
 	// thus methods.
+	//
 	// TODO(adonovan): investigate whether this is desirable.
+	//
+	// Calls to generic functions will be unsound unless packages
+	// are built using the ssa.InstantiateGenerics builder mode.
+
+	// MYCODE
+	// Rename Mains to OLDMains
 	OLDMains []*ssa.Package
 
+	// MYCODE
+	// Add Program
 	Prog *ssa.Program
 
 	// Reflection determines whether to handle reflection
@@ -95,7 +104,7 @@ func (c *Config) AddQuery(v ssa.Value) {
 	c.Queries[v] = struct{}{}
 }
 
-// AddQuery adds v to Config.IndirectQueries.
+// AddIndirectQuery adds v to Config.IndirectQueries.
 // Precondition: CanPoint(v.Type().Underlying().(*types.Pointer).Elem()).
 func (c *Config) AddIndirectQuery(v ssa.Value) {
 	if c.IndirectQueries == nil {
@@ -149,9 +158,11 @@ func (c *Config) AddExtendedQuery(v ssa.Value, query string) (*Pointer, error) {
 }
 
 func (c *Config) prog() *ssa.Program {
-	//for _, main := range c.Mains {
-	//	return main.Prog
-	//}
+	// MYCODE
+	// Replace Mains with Prog
+	// for _, main := range c.Mains {
+	// 	return main.Prog
+	// }
 	if c.Prog != nil {
 		return c.Prog
 	}
@@ -233,11 +244,11 @@ func (s PointsToSet) DynamicTypes() *typeutil.Map {
 	if s.pts != nil {
 		var space [50]int
 		for _, x := range s.pts.AppendTo(space[:0]) {
-			ifaceObjId := nodeid(x)
-			if !s.a.isTaggedObject(ifaceObjId) {
+			ifaceObjID := nodeid(x)
+			if !s.a.isTaggedObject(ifaceObjID) {
 				continue // !CanHaveDynamicTypes(tDyn)
 			}
-			tDyn, v, indirect := s.a.taggedValue(ifaceObjId)
+			tDyn, v, indirect := s.a.taggedValue(ifaceObjID)
 			if indirect {
 				panic("indirect tagged object") // implement later
 			}
@@ -254,16 +265,17 @@ func (s PointsToSet) DynamicTypes() *typeutil.Map {
 
 // Intersects reports whether this points-to set and the
 // argument points-to set contain common members.
-func (x PointsToSet) Intersects(y PointsToSet) bool {
-	if x.pts == nil || y.pts == nil {
+func (s PointsToSet) Intersects(y PointsToSet) bool {
+	if s.pts == nil || y.pts == nil {
 		return false
 	}
 	// This takes Θ(|x|+|y|) time.
 	var z intsets.Sparse
-	z.Intersection(&x.pts.Sparse, &y.pts.Sparse)
+	z.Intersection(&s.pts.Sparse, &y.pts.Sparse)
 	return !z.IsEmpty()
 }
 
+// MYCODE
 func (x PointsToSet) Equals(y PointsToSet) bool {
 	if x.pts == nil || y.pts == nil {
 		return false
@@ -289,6 +301,7 @@ func (p Pointer) MayAlias(q Pointer) bool {
 	return p.PointsTo().Intersects(q.PointsTo())
 }
 
+// MYCODE
 // Equals reports whether the receiver pointer has equal points-to set of
 // the argument pointer.
 func (p Pointer) Equals(q Pointer) bool {

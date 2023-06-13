@@ -1,0 +1,3 @@
+[submodule "GCatch/tools/go/mypointer"]
+	path = GCatch/tools/go/mypointer
+	url = https://github.com/BurtonQin/mypointer

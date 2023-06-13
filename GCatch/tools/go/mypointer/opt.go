@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package mypointer
+package pointer
 
 // This file implements renumbering, a pre-solver optimization to
 // improve the efficiency of the solver's points-to set representation.
@@ -27,15 +27,14 @@ import "fmt"
 //
 // Renumbering makes the PTA log inscrutable.  To aid debugging, later
 // phases (e.g. HVN) must not rely on it having occurred.
-//
 func (a *analysis) renumber() {
 	if a.log != nil {
 		fmt.Fprintf(a.log, "\n\n==== Renumbering\n\n")
 	}
 
 	N := nodeid(len(a.nodes))
-	newNodes := make([]*node, N, N)
-	renumbering := make([]nodeid, N, N) // maps old to new
+	newNodes := make([]*node, N)
+	renumbering := make([]nodeid, N) // maps old to new
 
 	var i, j nodeid
 

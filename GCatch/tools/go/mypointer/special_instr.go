@@ -1,8 +1,10 @@
-package mypointer
+// / MYCODE
+package pointer
 
 import (
-	"golang.org/x/tools/go/ssa"
 	"strings"
+
+	"golang.org/x/tools/go/ssa"
 )
 
 // There are a few function calls we'd like to handle context sensitively

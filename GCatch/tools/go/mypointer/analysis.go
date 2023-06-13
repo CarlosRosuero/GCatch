@@ -2,22 +2,24 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package mypointer
+package pointer
 
 // This file defines the main datatypes and Analyze function of the pointer analysis.
 
 import (
 	"fmt"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/callgraph"
-	"github.com/system-pclub/GCatch/GCatch/tools/go/types/typeutil"
 	"go/token"
 	"go/types"
-	"golang.org/x/tools/go/ssa"
 	"io"
 	"os"
 	"reflect"
 	"runtime"
 	"sort"
+	"strings"
+
+	"golang.org/x/tools/go/callgraph"
+	"golang.org/x/tools/go/ssa"
+	"golang.org/x/tools/go/types/typeutil"
 )
 
 const (
@@ -56,8 +58,8 @@ type object struct {
 	//
 	// ssa.Value	for an object allocated by an SSA operation.
 	// types.Type	for an rtype instance object or *rtype-tagged object.
-	// string	for an instrinsic object, e.g. the array behind os.Args.
-	// nil		for an object allocated by an instrinsic.
+	// string	for an intrinsic object, e.g. the array behind os.Args.
+	// nil		for an object allocated by an intrinsic.
 	//		(cgn provides the identity of the intrinsic.)
 	data interface{}
 
@@ -236,14 +238,17 @@ func Analyze(config *Config, known_callgraph *callgraph.Graph) (result *Result, 
 		}
 	}
 
+	// MYCODE
+	// Replace Mains with Prog
 	if config.Prog == nil {
 		return nil, fmt.Errorf("no main/test packages to analyze (check $GOROOT/$GOPATH)")
 	}
 	defer func() {
 		if p := recover(); p != nil {
 			err = fmt.Errorf("internal error in pointer analysis: %v (please report this bug)", p)
-			//fmt.Fprintln(os.Stderr, "Internal panic in pointer analysis:")
-			//debug.PrintStack()
+			// MYCODE
+			// fmt.Fprintln(os.Stderr, "Internal panic in pointer analysis:")
+			// debug.PrintStack()
 		}
 	}()
 
@@ -394,8 +399,9 @@ func Analyze(config *Config, known_callgraph *callgraph.Graph) (result *Result, 
 func (a *analysis) callEdge(caller *cgnode, site *callsite, calleeid nodeid) {
 	obj := a.nodes[calleeid].obj
 	if obj.flags&otFunction == 0 {
+		///MYCODE
 		return
-		panic(fmt.Sprintf("callEdge %s -> n%d: not a function object", site, calleeid))
+		// panic(fmt.Sprintf("callEdge %s -> n%d: not a function object", site, calleeid))
 	}
 	callee := obj.cgn
 
@@ -411,10 +417,25 @@ func (a *analysis) callEdge(caller *cgnode, site *callsite, calleeid nodeid) {
 		fmt.Fprintf(a.log, "\tcall edge %s -> %s\n", site, callee)
 	}
 
-	// Warn about calls to non-intrinsic external functions.
+	// Warn about calls to functions that are handled unsoundly.
 	// TODO(adonovan): de-dup these messages.
-	if fn := callee.fn; fn.Blocks == nil && a.findIntrinsic(fn) == nil {
+	fn := callee.fn
+
+	// Warn about calls to non-intrinsic external functions.
+	if fn.Blocks == nil && a.findIntrinsic(fn) == nil {
 		a.warnf(site.pos(), "unsound call to unknown intrinsic: %s", fn)
+		a.warnf(fn.Pos(), " (declared here)")
+	}
+
+	// Warn about calls to generic function bodies.
+	if fn.TypeParams().Len() > 0 && len(fn.TypeArgs()) == 0 {
+		a.warnf(site.pos(), "unsound call to generic function body: %s (build with ssa.InstantiateGenerics)", fn)
+		a.warnf(fn.Pos(), " (declared here)")
+	}
+
+	// Warn about calls to instantiation wrappers of generics functions.
+	if fn.Origin() != nil && strings.HasPrefix(fn.Synthetic, "instantiation wrapper ") {
+		a.warnf(site.pos(), "unsound call to instantiation wrapper of generic: %s (build with ssa.InstantiateGenerics)", fn)
 		a.warnf(fn.Pos(), " (declared here)")
 	}
 }

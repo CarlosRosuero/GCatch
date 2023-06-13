@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package mypointer
+package pointer
 
 // This file implements Hash-Value Numbering (HVN), a pre-solver
 // constraint optimization described in Hardekopf & Lin, SAS'07 (see
@@ -89,7 +89,7 @@ package mypointer
 //   their expanded-out sets are equal.
 // * HR (HVN with deReference---see paper): this will require that we
 //   apply HVN until fixed point, which may need more bookkeeping of the
-//   correspondance of main nodes to onodes.
+//   correspondence of main nodes to onodes.
 // * Location Equivalence (see paper): have points-to sets contain not
 //   locations but location-equivalence class labels, each representing
 //   a set of locations.
@@ -167,21 +167,21 @@ import (
 	"io"
 	"reflect"
 
-	"github.com/system-pclub/GCatch/GCatch/tools/container/intsets"
+	"golang.org/x/tools/container/intsets"
 )
 
 // A peLabel is a pointer-equivalence label: two nodes with the same
 // peLabel have identical points-to solutions.
 //
 // The numbers are allocated consecutively like so:
-// 	0	not a pointer
+//
+//	0	not a pointer
 //	1..N-1	addrConstraints (equals the constraint's .src field, hence sparse)
 //	...	offsetAddr constraints
 //	...	SCCs (with indirect nodes or multiple inputs)
 //
 // Each PE label denotes a set of pointers containing a single addr, a
 // single offsetAddr, or some set of other PE labels.
-//
 type peLabel int
 
 type hvn struct {
@@ -212,7 +212,6 @@ type onodeid uint32
 // the source, i.e. against the flow of values: they are dependencies.
 // Implicit edges are used for SCC computation, but not for gathering
 // incoming labels.
-//
 type onode struct {
 	rep onodeid // index of representative of SCC in offline constraint graph
 
@@ -244,7 +243,6 @@ func (h *hvn) ref(id onodeid) onodeid {
 
 // hvn computes pointer-equivalence labels (peLabels) using the Hash-based
 // Value Numbering (HVN) algorithm described in Hardekopf & Lin, SAS'07.
-//
 func (a *analysis) hvn() {
 	start("HVN")
 
@@ -391,10 +389,9 @@ func (c *storeConstraint) presolve(h *hvn) {
 		if debugHVNVerbose && h.log != nil {
 			fmt.Fprintf(h.log, "\to%d --> o%d\n", h.ref(odst), osrc)
 		}
-	} else {
-		// We don't interpret store-with-offset.
-		// See discussion of soundness at markIndirectNodes.
 	}
+	// We don't interpret store-with-offset.
+	// See discussion of soundness at markIndirectNodes.
 }
 
 // dst = &src.offset
@@ -456,28 +453,27 @@ func (c *invokeConstraint) presolve(h *hvn) {
 // markIndirectNodes marks as indirect nodes whose points-to relations
 // are not entirely captured by the offline graph, including:
 //
-//    (a) All address-taken nodes (including the following nodes within
-//        the same object).  This is described in the paper.
+//	(a) All address-taken nodes (including the following nodes within
+//	    the same object).  This is described in the paper.
 //
 // The most subtle cause of indirect nodes is the generation of
 // store-with-offset constraints since the offline graph doesn't
 // represent them.  A global audit of constraint generation reveals the
 // following uses of store-with-offset:
 //
-//    (b) genDynamicCall, for P-blocks of dynamically called functions,
-//        to which dynamic copy edges will be added to them during
-//        solving: from storeConstraint for standalone functions,
-//        and from invokeConstraint for methods.
-//        All such P-blocks must be marked indirect.
-//    (c) MakeUpdate, to update the value part of a map object.
-//        All MakeMap objects's value parts must be marked indirect.
-//    (d) copyElems, to update the destination array.
-//        All array elements must be marked indirect.
+//	(b) genDynamicCall, for P-blocks of dynamically called functions,
+//	    to which dynamic copy edges will be added to them during
+//	    solving: from storeConstraint for standalone functions,
+//	    and from invokeConstraint for methods.
+//	    All such P-blocks must be marked indirect.
+//	(c) MakeUpdate, to update the value part of a map object.
+//	    All MakeMap objects's value parts must be marked indirect.
+//	(d) copyElems, to update the destination array.
+//	    All array elements must be marked indirect.
 //
 // Not all indirect marking happens here.  ref() nodes are marked
 // indirect at construction, and each constraint's presolve() method may
 // mark additional nodes.
-//
 func (h *hvn) markIndirectNodes() {
 	// (a) all address-taken nodes, plus all nodes following them
 	//     within the same object, since these may be indirectly
@@ -762,7 +758,6 @@ func (h *hvn) coalesce(x, y onodeid) {
 // labels assigned by the hvn, and uses it to simplify the main
 // constraint graph, eliminating non-pointer nodes and duplicate
 // constraints.
-//
 func (h *hvn) simplify() {
 	// canon maps each peLabel to its canonical main node.
 	canon := make([]nodeid, h.label)
@@ -785,11 +780,11 @@ func (h *hvn) simplify() {
 		assert(peLabels.Len() == 1, "PE class is not a singleton")
 		label := peLabel(peLabels.Min())
 
-		canonId := canon[label]
-		if canonId == nodeid(h.N) {
+		canonID := canon[label]
+		if canonID == nodeid(h.N) {
 			// id becomes the representative of the PE label.
-			canonId = id
-			canon[label] = canonId
+			canonID = id
+			canon[label] = canonID
 
 			if h.a.log != nil {
 				fmt.Fprintf(h.a.log, "\tpts(n%d) is canonical : \t(%s)\n",
@@ -798,8 +793,8 @@ func (h *hvn) simplify() {
 
 		} else {
 			// Link the solver states for the two nodes.
-			assert(h.a.nodes[canonId].solve != nil, "missing solver state")
-			h.a.nodes[id].solve = h.a.nodes[canonId].solve
+			assert(h.a.nodes[canonID].solve != nil, "missing solver state")
+			h.a.nodes[id].solve = h.a.nodes[canonID].solve
 
 			if h.a.log != nil {
 				// TODO(adonovan): debug: reorganize the log so it prints
@@ -807,11 +802,11 @@ func (h *hvn) simplify() {
 				// 	pe y = x1, ..., xn
 				// for each canonical y.  Requires allocation.
 				fmt.Fprintf(h.a.log, "\tpts(n%d) = pts(n%d) : %s\n",
-					id, canonId, h.a.nodes[id].typ)
+					id, canonID, h.a.nodes[id].typ)
 			}
 		}
 
-		mapping[id] = canonId
+		mapping[id] = canonID
 	}
 
 	// Renumber the constraints, eliminate duplicates, and eliminate

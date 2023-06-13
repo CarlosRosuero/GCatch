@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package mypointer
+package pointer
 
 import (
 	"fmt"
@@ -57,6 +57,7 @@ func (l Label) Path() string {
 	return l.subelement.path()
 }
 
+// MYCODE
 func (l Label) Cgn_CallInst() ssa.CallInstruction {
 	if l.obj.cgn == nil {
 		return nil
