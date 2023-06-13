@@ -58,7 +58,7 @@ func BuildWholeProgramTrad(strPath string, boolForce bool, boolShowError bool) (
 func BuildWholeProgramGoMod(strModulePath string, boolForce bool, boolShowError bool, strModAbsPath string) (*ssa.Program, []*ssa.Package, bool, string) {
 	os.Setenv("GO111MODULE", "on")
 	strMsg := "suc"
-	cfg := &packages.Config{Mode: packages.LoadAllSyntax, Tests: true, Dir: strModAbsPath}
+	cfg := &packages.Config{Mode: packages.LoadAllSyntax, Tests: true, Dir: strModAbsPath, BuildFlags: []string{"-mod=mod"}}
 	initialPackage, err := packages.Load(cfg, strModulePath) // you can put multiple paths here, but it is unnecessary if you only want one program
 	if err != nil {
 		strMsg = "load_err"
